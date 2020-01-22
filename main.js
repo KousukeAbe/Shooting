@@ -134,7 +134,7 @@ const hitCheck = (game, scoreLabel, beam) => {
      beam.flag = false; // 接触した場合はビームを消す
      beam.visible = false;
      enemy_list[i].y = -9999;  // 見えない場所に移動
-     game.score = game.score + 1; // スコアを加算(1点)
+     game.score = game.score + 100000; // スコアを加算(1点)
      eliminate_count = eliminate_count - 1; // 総敵数から1を引く
      if (eliminate_count < 1){  // 全部倒したか調べる
        setTimeout(drawEnemy, 2000); // 2秒後に敵を再描画
@@ -173,7 +173,7 @@ const initEnemyLaser = (game) => {
 const moveEnemyLaser = (game) => {
   for(let i=0; i < maxEnemyLaser; i++){
     if (!enemyLaser[i].flag){ continue; } // レーザービームがない場合は繰り返しの先頭に
-    enemyLaser[i].y = enemyLaser[i].y + 10; // Y座標の移動処理
+    enemyLaser[i].y = enemyLaser[i].y + 20; // Y座標の移動処理
     if (enemyLaser[i].y > game.height){  // 画面外か？
       enemyLaser[i].flag = false;  // 発射するレーザービームの存在をONにする
     }
