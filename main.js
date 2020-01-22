@@ -10,7 +10,7 @@ let maxEnemyLaser = 20;
 window.onload = function(){
   let game = new Core(1000, 1000);
   game.fps = 30;
-  game.preload("images/enemy.png", "images/beam.png", "images/own.png", "images/enemy_beam.png" );
+  game.preload("images/enemy.png", "images/beam.png", "images/own.png", "images/enemy_beam.png", "images/shi.png" );
   game.rootScene.backgroundColor = "white";
   game.score = 0;
 
@@ -42,6 +42,15 @@ window.onload = function(){
     beam._style.zIndex = 2;
     game.rootScene.addChild(beam);
 
+    let shi = new Sprite(410, 410);
+    shi.image = game.assets["images/shi.png"];
+    shi.visible = false;
+    shi.x = game.width / 4; // X座標
+    shi.y = game.height / 4; // Y座標
+    shi._style.zIndex = 999;
+
+    game.rootScene.addChild(shi);
+
     // Zキーをaボタンとして割り当てる
     game.keybind(90, "a");
 
@@ -55,7 +64,7 @@ window.onload = function(){
       moveFighter(fighter, game, beam); // 自機を移動させる（キーボード対応）
       hitCheck(game, scoreLabel, beam);  // ビームと敵の接触判定
       moveEnemy();
-      hitCheckLaser(game, fighter);
+      hitCheckLaser(game, fighter, shi);
       startEnemyLaser();
       moveEnemyLaser(game);
     });
@@ -184,13 +193,13 @@ const startEnemyLaser = () => {
  }
 }
 
-const hitCheckLaser = (game, fighter) => {
+const hitCheckLaser = (game, fighter, shi) => {
  for(let i = 0; i < maxEnemyLaser; i++){
    if (!enemyLaser[i].flag){ continue; }
    if (enemyLaser[i].intersect(fighter)){  // 接触したらゲームオーバー
-     game.rootScene.backgroundColor = "red";  // ゲームの背景色を赤色に設定
+     shi.visible =true;
      game.stop();
-     alert("自機が破壊されました。もう駄目です。スコアは"+game.score+"点でした");
+     alert("うわああああああああああああ\nスコア:"+game.score+"点");
      return;  // 以後の処理は行わないようにする
    }
  }
